@@ -10,7 +10,7 @@ var cheerio = require("cheerio");
 
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// =============================configeration======================
+// =============================config======================
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/thought-scraper";
 
