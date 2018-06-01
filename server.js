@@ -4,6 +4,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var mongojs = require('mongojs')
 
+
 var axios = require("axios");
 var cheerio = require("cheerio");
 
@@ -27,6 +28,15 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/thought-scrape
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
+
+var conn = mongoose.connection;
+
+conn.on('error', function(err){
+  console.log('Mongoose error');
+})
+conn.once('open', function(err){
+  console.log('Mongoose connection successful');
+})
 
 // =============================configeration======================
 
