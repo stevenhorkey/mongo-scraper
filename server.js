@@ -49,6 +49,8 @@ app.get("/scrape", function(req, res) {
   mongoose.connection.db.dropCollection('articles', function(err, result) {});
 
   axios.get("https://www.thoughtco.com/arts-music-recreation-4132958").then(function(response) {
+    console.log("Scrape Complete");
+
     var $ = cheerio.load(response.data);
 
     $(".g-item").children('a').each(function(i, element) {
@@ -68,13 +70,13 @@ app.get("/scrape", function(req, res) {
       db.Article.create(result)
         .then(function(dbArticle) {
           console.log(dbArticle);
+          res.send();
         })
         .catch(function(err) {
           return res.json(err);
         });
     });
 
-    console.log("Scrape Complete");
   });
 });
 
